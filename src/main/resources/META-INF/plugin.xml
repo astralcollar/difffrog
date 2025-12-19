@@ -15,4 +15,5 @@
             <add-to-group group-id="MainToolbarRight" anchor="last"/>
         </action>
     </actions>
+
 </idea-plugin>

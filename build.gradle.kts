@@ -29,18 +29,14 @@ intellijPlatform {
         id.set("com.crossguild.difffrog")
         name.set("DiffFrog")
 
-        description.set("""
-            🐸 <b>DiffFrog</b>: A cute way to track your Git changes.
-            Features:
-            <ul>
-                <li>Live counter of added and deleted lines in the toolbar.</li>
-                <li>Animated number transitions.</li>
-                <li>Special 420 🌿 and ⚠️ alerts.</li>
-            </ul>
-        """.trimIndent())
+        description.set(
+            "DiffFrog is an IntelliJ plugin that helps developers visualize Git changes directly " +
+                    "from the toolbar. It shows live added and deleted line counts with smooth animations " +
+                    "to improve awareness during development and code reviews."
+        )
 
         vendor {
-            name.set("")
+            name.set("ZoLitaTek")
             email.set("")
             url.set("https://github.com/tu-usuario/difffrog")
         }
@@ -49,10 +45,6 @@ intellijPlatform {
             sinceBuild.set("241")
             untilBuild.set("252.*")
         }
-    }
-
-    publishing {
-        token.set(System.getenv("PUBLISH_TOKEN"))
     }
 }
 
