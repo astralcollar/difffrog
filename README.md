@@ -1,5 +1,18 @@
 # 🐸 DiffFrog
-![difffrog](https://github.com/user-attachments/assets/28d97875-b088-4ed0-89d0-460d80211e5d)
+<p align="center">
+  <img
+    src="https://github.com/user-attachments/assets/28d97875-b088-4ed0-89d0-460d80211e5d"
+    style="width:49%; "
+    alt="difffrog gif"
+  />
+  <img
+    src="https://github.com/user-attachments/assets/22f0fec2-97ee-45a9-993d-b481dc5cb6e6"
+    style="width:10%;"
+    alt="difffrog img"
+  />
+</p>
+
+
 
 *DiffFrog* is a lightweight, kawaii-styled IntelliJ IDEA extension that helps you monitor your Git changes in real-time directly from your status bar. Keep your Pull Requests under control with a touch of personality!
 
