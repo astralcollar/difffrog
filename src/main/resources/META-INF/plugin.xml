@@ -5,10 +5,9 @@
 
     <depends>com.intellij.modules.platform</depends>
     <depends>Git4Idea</depends>
-    <description>
-        DiffFrog is an IntelliJ plugin that helps developers visually compare files and
-        detect differences quickly, improving productivity during code reviews and debugging.
-    </description>
+    <description>DiffFrog is an IntelliJ plugin that helps developers visually compare files and
+        detect differences quickly, improving productivity during code reviews and debugging.</description>
+
     <actions>
         <action id="com.crossguild.difffrog.GitDiffToolbarAction"
                 class="com.crossguild.difffrog.GitDiffToolbarAction"
