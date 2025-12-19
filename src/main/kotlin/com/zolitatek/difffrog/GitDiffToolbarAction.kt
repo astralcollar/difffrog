@@ -43,17 +43,15 @@ class GitDiffToolbarAction : AnAction(), CustomComponentAction {
     private val labelStats = JBLabel("").apply {
         cursor = Cursor.getPredefinedCursor(Cursor.HAND_CURSOR)
         horizontalAlignment = SwingConstants.LEFT
-        preferredSize = Dimension(140, 26) // Un poco más ancho para los iconos
+        preferredSize = Dimension(140, 26) 
     }
 
     private val loadingIcon = AsyncProcessIcon("GitDiffLoading").apply { isVisible = false }
     private val updateAlarm = Alarm(Alarm.ThreadToUse.POOLED_THREAD, null)
 
-    // Animación de números tipo "contador"
     private val animationTimer = Timer(25) {
         var changed = false
 
-        // Animación líneas añadidas
         if (displayedAdded != targetAdded) {
             val diff = targetAdded - displayedAdded
             val step = (diff / 4).coerceIn(-20, 20).let { if (it == 0) (if (diff > 0) 1 else -1) else it }
@@ -61,7 +59,6 @@ class GitDiffToolbarAction : AnAction(), CustomComponentAction {
             changed = true
         }
 
-        // Animación líneas eliminadas
         if (displayedDeleted != targetDeleted) {
             val diff = targetDeleted - displayedDeleted
             val step = (diff / 4).coerceIn(-20, 20).let { if (it == 0) (if (diff > 0) 1 else -1) else it }
@@ -79,7 +76,6 @@ class GitDiffToolbarAction : AnAction(), CustomComponentAction {
     private var currentProject: Project? = null
     private var isListenerRegistered = false
 
-    // --- Getters / Setters de Configuración ---
     private var targetBranch: String
         get() = PropertiesComponent.getInstance().getValue(KEY_TARGET_BRANCH, "develop")
         set(value) = PropertiesComponent.getInstance().setValue(KEY_TARGET_BRANCH, value)
@@ -109,12 +105,11 @@ class GitDiffToolbarAction : AnAction(), CustomComponentAction {
 
     private fun updateLabelText(added: Int, deleted: Int) {
         val addColor = getInterpolatedGreen(added)
-        val delColor = "#C75450" // Rojo Git clásico
+        val delColor = "#C75450"
 
-        // Lógica de iconos exacta
         val icon = when {
-            added == maxLines && deleted == maxLines -> " 🌿" // Solo si es exacto
-            added >= maxLines -> " ⚠️" // Alerta si superas o llegas al límite en agregadas
+            added == maxLines && deleted == maxLines -> " 🌿"
+            added >= maxLines -> " ⚠️"
             else -> ""
         }
 
@@ -126,10 +121,8 @@ class GitDiffToolbarAction : AnAction(), CustomComponentAction {
     }
 
     private fun getInterpolatedGreen(added: Int): String {
-        // Si es 0 o poco, color blanco. A medida que sube, se vuelve verde.
         val ratio = (added.toFloat() / maxLines.toFloat()).coerceIn(0f, 1f)
 
-        // De Blanco Puro (#FFFFFF) a Verde Intenso (#499C54)
         val r = (255 - (ratio * (255 - 73))).toInt()
         val g = (255 - (ratio * (255 - 156))).toInt()
         val b = (255 - (ratio * (255 - 84))).toInt()
@@ -181,10 +174,10 @@ class GitDiffToolbarAction : AnAction(), CustomComponentAction {
 
         val delaySlider = JSlider(0, 2, delayLevel).apply {
             val labels = Hashtable<Int, JLabel>()
-            labels[0] = JLabel("🐢"); labels[1] = JLabel("😐"); labels[2] = JLabel("⚡")
+            labels[0] = JLabel("slow 🐢"); labels[1] = JLabel("medium 😐"); labels[2] = JLabel("fast ⚡")
             labelTable = labels; paintLabels = true; snapToTicks = true
         }
-        rootPanel.add(JBLabel("Velocidad:").apply { alignmentX = Component.CENTER_ALIGNMENT })
+        rootPanel.add(JBLabel("Refresh time :").apply { alignmentX = Component.CENTER_ALIGNMENT })
         rootPanel.add(delaySlider)
 
         JBPopupFactory.getInstance()
