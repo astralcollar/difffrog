@@ -1,0 +1,20 @@
+<idea-plugin>
+    <id>com.crossguild.difffrog</id>
+    <name>DiffFrog</name>
+    <vendor>CrossGuild</vendor>
+
+    <depends>com.intellij.modules.platform</depends>
+    <depends>Git4Idea</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <toolWindow factoryClass="com.crossguild.difffrog.MyToolWindowFactory" id="DiffFrog Tool" anchor="right"/>
+    </extensions>
+
+    <actions>
+        <action id="com.crossguild.difffrog.GitDiffToolbarAction"
+                class="com.crossguild.difffrog.GitDiffToolbarAction"
+                text="Git Diff Stats">
+            <add-to-group group-id="MainToolbarRight" anchor="last"/>
+        </action>
+    </actions>
+</idea-plugin>
