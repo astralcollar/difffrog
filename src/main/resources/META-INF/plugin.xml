@@ -1,6 +1,6 @@
 <idea-plugin>
     <id>com.crossguild.difffrog</id>
-    <name>DiffFrog</name>
+    <name>difffrog</name>
     <vendor>ZoLitaTek</vendor>
 
     <depends>com.intellij.modules.platform</depends>
