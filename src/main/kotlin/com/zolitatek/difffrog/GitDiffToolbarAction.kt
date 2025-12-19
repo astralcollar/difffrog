@@ -1,4 +1,4 @@
-package com.crossguild.difffrog
+package com.zolitatek.difffrog
 
 import com.intellij.ide.util.PropertiesComponent
 import com.intellij.openapi.actionSystem.AnAction
@@ -6,10 +6,13 @@ import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.Presentation
 import com.intellij.openapi.actionSystem.ex.CustomComponentAction
 import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.editor.EditorFactory
 import com.intellij.openapi.editor.event.DocumentEvent
 import com.intellij.openapi.editor.event.DocumentListener
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.popup.JBPopupFactory
+import com.intellij.openapi.ui.popup.JBPopupListener
+import com.intellij.openapi.ui.popup.LightweightWindowEvent
 import com.intellij.ui.components.JBLabel
 import com.intellij.ui.components.JBTextField
 import com.intellij.util.Alarm
@@ -188,8 +191,8 @@ class GitDiffToolbarAction : AnAction(), CustomComponentAction {
             .createComponentPopupBuilder(rootPanel, txtTarget)
             .setTitle("DiffFrog Config")
             .setRequestFocus(true)
-            .addListener(object : com.intellij.openapi.ui.popup.JBPopupListener {
-                override fun onClosed(event: com.intellij.openapi.ui.popup.LightweightWindowEvent) {
+            .addListener(object : JBPopupListener {
+                override fun onClosed(event: LightweightWindowEvent) {
                     targetBranch = txtTarget.text.trim().ifEmpty { "develop" }
                     maxLines = txtMaxLines.text.toIntOrNull() ?: 420
                     delayLevel = delaySlider.value
@@ -220,7 +223,7 @@ class GitDiffToolbarAction : AnAction(), CustomComponentAction {
     override fun update(e: AnActionEvent) {
         currentProject = e.project
         if (currentProject != null && !isListenerRegistered) {
-            com.intellij.openapi.editor.EditorFactory.getInstance().eventMulticaster.addDocumentListener(object : DocumentListener {
+            EditorFactory.getInstance().eventMulticaster.addDocumentListener(object : DocumentListener {
                 override fun documentChanged(event: DocumentEvent) = triggerUpdate()
             }, currentProject!!)
             isListenerRegistered = true

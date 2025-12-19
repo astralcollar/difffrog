@@ -10,7 +10,7 @@
 
     <actions>
         <action id="com.crossguild.difffrog.GitDiffToolbarAction"
-                class="com.crossguild.difffrog.GitDiffToolbarAction"
+                class="com.zolitatek.difffrog.GitDiffToolbarAction"
                 text="Git Diff Stats">
             <add-to-group group-id="MainToolbarRight" anchor="last"/>
         </action>

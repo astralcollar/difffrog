@@ -4,7 +4,7 @@ plugins {
     id("org.jetbrains.intellij.platform") version "2.10.2"
 }
 
-group = "com.crossguild"
+group = "com.zolitatek"
 version = "1.0.0"
 
 repositories {
@@ -26,19 +26,19 @@ dependencies {
 
 intellijPlatform {
     pluginConfiguration {
-        id.set("com.crossguild.difffrog")
-        name.set("DiffFrog")
+        id.set("com.zolitatek.difffrog")
+        name.set("difffrog")
 
         description.set(
-            "DiffFrog is an IntelliJ plugin that helps developers visualize Git changes directly " +
+            "difffrog is an IntelliJ plugin that helps developers visualize Git changes directly " +
                     "from the toolbar. It shows live added and deleted line counts with smooth animations " +
                     "to improve awareness during development and code reviews."
         )
 
         vendor {
-            name.set("ZoLitaTek")
+            name.set("zolitatek")
             email.set("")
-            url.set("https://github.com/tu-usuario/difffrog")
+            url.set("https://github.com/astralcollar/difffrog")
         }
 
         ideaVersion {
