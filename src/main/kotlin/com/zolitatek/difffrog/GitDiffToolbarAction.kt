@@ -43,7 +43,7 @@ class GitDiffToolbarAction : AnAction(), CustomComponentAction {
     private val labelStats = JBLabel("").apply {
         cursor = Cursor.getPredefinedCursor(Cursor.HAND_CURSOR)
         horizontalAlignment = SwingConstants.LEFT
-        preferredSize = Dimension(140, 26) 
+        preferredSize = Dimension(140, 26)
     }
 
     private val loadingIcon = AsyncProcessIcon("GitDiffLoading").apply { isVisible = false }
