@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>com.crossguild.difffrog</id>
     <name>DiffFrog</name>
-    <vendor>CrossGuild</vendor>
+    <vendor>ZoLitaTek</vendor>
 
     <depends>com.intellij.modules.platform</depends>
     <depends>Git4Idea</depends>
