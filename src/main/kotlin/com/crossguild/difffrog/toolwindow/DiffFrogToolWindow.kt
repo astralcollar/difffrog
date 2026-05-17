@@ -58,7 +58,20 @@ class DiffFrogToolWindow(private val project: Project) : Disposable {
         // --- LEFT: File List + Inline Commit ---
         val leftPanel = JPanel(BorderLayout())
         val listModel = DefaultListModel<ChangeItem>()
-// other shi 
+
+        // ---- Commit Button (opens wizard dialog) ----
+        val commitBtn = JButton("\ud83d\udc38  Commit Wizard")
+        commitBtn.isEnabled = false
+        // Update enabled state whenever list model changes
+        fun updateCommitBtn() {
+            commitBtn.isEnabled = listModel.elements().toList().any { it.isSelected }
+        }
+        listModel.addListDataListener(object : javax.swing.event.ListDataListener {
+            override fun intervalAdded(e: javax.swing.event.ListDataEvent) = updateCommitBtn()
+            override fun intervalRemoved(e: javax.swing.event.ListDataEvent) = updateCommitBtn()
+            override fun contentsChanged(e: javax.swing.event.ListDataEvent) = updateCommitBtn()
+        })
+        
         // ---- File list with fixed checkbox on right ----
         val fileList = object : JBList<ChangeItem>(listModel) {
             override fun getScrollableTracksViewportWidth(): Boolean = false
@@ -84,6 +97,7 @@ class DiffFrogToolWindow(private val project: Project) : Disposable {
                     if (viewX >= checkboxX && SwingUtilities.isLeftMouseButton(e)) {
                         item.isSelected = !item.isSelected
                         fileList.repaint(bounds)
+                        updateCommitBtn()
                         return
                     }
 
@@ -213,11 +227,13 @@ class DiffFrogToolWindow(private val project: Project) : Disposable {
         stageBtn.addActionListener {
             for (i in 0 until listModel.size) listModel.getElementAt(i).isSelected = true
             fileList.repaint()
+            updateCommitBtn()
         }
         val unstageBtn = JButton("✖ None")
         unstageBtn.addActionListener {
             for (i in 0 until listModel.size) listModel.getElementAt(i).isSelected = false
             fileList.repaint()
+            updateCommitBtn()
         }
         
         toolbarTopPanel.add(refreshBtn)
@@ -240,19 +256,6 @@ class DiffFrogToolWindow(private val project: Project) : Disposable {
                 git4idea.branch.GitBrancher.getInstance(project).checkout(selected, false, listOf(repo), null)
             }
         }
-
-        // ---- Commit Button (opens wizard dialog) ----
-        val commitBtn = JButton("\ud83d\udc38  Commit Wizard")
-        commitBtn.isEnabled = false
-        // Update enabled state whenever list model changes
-        fun updateCommitBtn() {
-            commitBtn.isEnabled = listModel.elements().toList().any { it.isSelected }
-        }
-        listModel.addListDataListener(object : javax.swing.event.ListDataListener {
-            override fun intervalAdded(e: javax.swing.event.ListDataEvent) = updateCommitBtn()
-            override fun intervalRemoved(e: javax.swing.event.ListDataEvent) = updateCommitBtn()
-            override fun contentsChanged(e: javax.swing.event.ListDataEvent) = updateCommitBtn()
-        })
 
         commitBtn.addActionListener {
             val selectedItems = listModel.elements().toList()
